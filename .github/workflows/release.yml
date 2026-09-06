@@ -10,6 +10,7 @@ on: # yamllint disable-line rule:truthy
       - "settings.gradle.kts"
       - "gradle.properties"
       - "gradle/**"
+      - ".github/scripts/gradle-version.sh"
       - ".github/workflows/release.yml"
   workflow_dispatch:
 
@@ -55,15 +56,9 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - name: Read Gradle version
+      - name: Read the Gradle version from the wrapper properties
         id: gradle
-        run: |
-          version=$(sed -n 's#^distributionUrl=.*/gradle-\([0-9][A-Za-z0-9.-]*\)-\(bin\|all\)\.zip$#\1#p' gradle/wrapper/gradle-wrapper.properties)
-          if [ -z "$version" ]; then
-            echo "::error::could not parse a Gradle version out of gradle-wrapper.properties"
-            exit 1
-          fi
-          echo "version=$version" >> "$GITHUB_OUTPUT"
+        run: .github/scripts/gradle-version.sh
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v6
@@ -143,7 +138,3 @@ jobs:
             dist/kanarek-foss.apk \
             --clobber
           gh release edit "$tag" --draft=false --latest
-
-          # Keep the immutable version tag for source/F-Droid history, but retire
-          # the superseded numbered GitHub release.
-          gh release delete v0.0.6 --yes 2>/dev/null || true
