@@ -6,15 +6,18 @@
 # would install the old version and the wrapper regeneration would rewrite the properties
 # file back, so CI would go green without ever building against the new Gradle.
 #
-# Writes `version=<x>` to $GITHUB_OUTPUT. The charset in the regex rejects shell
-# metacharacters, which matters because on a pull request from a fork the properties file
-# is attacker-controlled.
+# Writes `version=<x>` to $GITHUB_OUTPUT. Validation rejects shell metacharacters, which
+# matters because on a pull request from a fork the properties file is attacker-controlled.
 set -euo pipefail
 
-version=$(sed -n 's#^distributionUrl=.*/gradle-\([0-9][A-Za-z0-9.-]*\)-\(bin\|all\)\.zip$#\1#p' \
-  gradle/wrapper/gradle-wrapper.properties)
-if [ -z "$version" ]; then
+distribution_url=$(sed -n 's/^distributionUrl=//p' gradle/wrapper/gradle-wrapper.properties)
+version=${distribution_url##*gradle-}
+version=${version%-bin.zip}
+version=${version%-all.zip}
+
+if [ "$version" = "$distribution_url" ] || [[ ! "$version" =~ ^[0-9][A-Za-z0-9.-]*$ ]]; then
   echo "::error::could not parse a Gradle version out of gradle-wrapper.properties"
   exit 1
 fi
+
 echo "version=$version" >> "$GITHUB_OUTPUT"
