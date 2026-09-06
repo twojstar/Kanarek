@@ -15,8 +15,9 @@ do zarządzania feedami + odtwarzacz radia/IPTV w tle z własnym widżetem + opc
 na Cloudflare (RSS/Atom → JSON na krawędzi).
 Stack: Kotlin/Compose (Material 3), App Widgets (AdapterViewFlipper + RemoteViewsService),
 Media3 (ExoPlayer + MediaSession), DataStore, WorkManager, Coil.
-Current build/toolchain versions live in gradle/libs.versions.toml, gradle/wrapper/gradle-wrapper.properties,
-and pp/build.gradle.kts; this history intentionally does not duplicate them.
+Current build/toolchain versions live in the repository configuration:
+`gradle/libs.versions.toml`, `gradle/wrapper/gradle-wrapper.properties`, and
+`app/build.gradle.kts`; this history intentionally does not duplicate them.
 
 ## Zrobione (chronologicznie)
 
