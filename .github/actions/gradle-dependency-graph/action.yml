@@ -38,7 +38,7 @@ runs:
         # first produced were against build tooling -- 40 netty via AGP's Unified Test
         # Platform, the rest via androidLintTool, unit-test classpaths and the buildscript.
         # Zero of the 14 flagged packages appear in playReleaseRuntimeClasspath or
-        # fossReleaseRuntimeClasspath, and AGP 9.3.1 still pins netty 4.1.110, so there is
+        # fossReleaseRuntimeClasspath, and at triage time AGP 9.3.1 pinned netty 4.1.110, so there was
         # no upstream fix to take either.
         #
         # The cost of this line is real and deliberate: a CVE in a build tool -- the Kotlin

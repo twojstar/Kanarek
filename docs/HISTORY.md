@@ -14,8 +14,10 @@ Natywny androidowy widget (resizable, auto-rotating slideshow newsów) + compani
 do zarządzania feedami + odtwarzacz radia/IPTV w tle z własnym widżetem + opcjonalny worker TS
 na Cloudflare (RSS/Atom → JSON na krawędzi).
 Stack: Kotlin/Compose (Material 3), App Widgets (AdapterViewFlipper + RemoteViewsService),
-Media3 (ExoPlayer + MediaSession), DataStore, WorkManager, Coil. AGP 9.3 / Kotlin 2.4.10 /
-Gradle 9.6.1, compileSdk 37 / minSdk 26.
+Media3 (ExoPlayer + MediaSession), DataStore, WorkManager, Coil.
+Current build/toolchain versions live in the repository configuration:
+`gradle/libs.versions.toml`, `gradle/wrapper/gradle-wrapper.properties`, and
+`app/build.gradle.kts`; this history intentionally does not duplicate them.
 
 ## Zrobione (chronologicznie)
 
