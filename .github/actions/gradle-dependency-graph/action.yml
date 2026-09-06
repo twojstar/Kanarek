@@ -17,7 +17,7 @@ runs:
     # No checkout here: a local `uses: ./...` only resolves once the caller has checked the
     # repository out, so doing it again would just re-clone over the caller's copy.
     - name: Set up JDK 17
-      uses: actions/setup-java@v5
+      uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
       with:
         distribution: temurin
         java-version: "17"
@@ -28,7 +28,7 @@ runs:
       run: .github/scripts/gradle-version.sh
 
     - name: Resolve the dependency graph
-      uses: gradle/actions/dependency-submission@v6
+      uses: gradle/actions/dependency-submission@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
       with:
         # gradle-version downloads Gradle directly, so this action does not need the wrapper
         # jar regenerated the way the build job does.
