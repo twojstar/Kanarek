@@ -1,6 +1,6 @@
 # Dependabot alert triage: build-tooling-only, app not affected
 
-> First resolved 2026-08-12; **re-verified 2026-08-20** against the current toolchain
+> First resolved 2026-08-12; **re-verified 2026-08-20** against the then-current toolchain
 > (AGP 9.3.1, Kotlin 2.4.10, Gradle 9.7.0) with the same conclusion. Exact package and tool
 > versions below record what was actually resolved; they are evidence, not current build
 > requirements. For current Gradle/AGP/Kotlin versions and wrapper bootstrap, use the repository
