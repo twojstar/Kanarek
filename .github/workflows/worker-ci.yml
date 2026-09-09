@@ -29,7 +29,7 @@ concurrency:
 jobs:
   check:
     name: Check Worker
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     timeout-minutes: 20
     permissions:
       contents: read
