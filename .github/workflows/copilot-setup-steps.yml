@@ -20,6 +20,37 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: trvny/.github/.github/actions/copilot-setup@main
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
         with:
-          repository: ${{ github.repository }}
+          distribution: temurin
+          java-version: "17"
+
+      - name: Read Gradle version
+        id: gradle
+        shell: bash
+        run: bash .github/scripts/gradle-version.sh
+
+      - uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
+        with:
+          gradle-version: ${{ steps.gradle.outputs.version }}
+
+      - name: Prepare Gradle project
+        shell: bash
+        env:
+          GRADLE_VERSION: ${{ steps.gradle.outputs.version }}
+        run: |
+          if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
+            gradle wrapper --gradle-version "$GRADLE_VERSION"
+          fi
+          chmod +x gradlew
+          ./gradlew --no-daemon help
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: worker/package-lock.json
+
+      - name: Install Worker dependencies
+        working-directory: worker
+        run: npm ci
